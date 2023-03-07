@@ -8,6 +8,8 @@
 *.ped.gz
 *.vcf
 *.vcf.gz
-
+*.map
+*.nosex
+*.csv
 # ignore files in data/
 data/
