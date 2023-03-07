@@ -2,3 +2,12 @@
 # ignore files in guidelines/ 
 0_guideline/
 
+*.bed
+*.bed.gz
+*.ped
+*.ped.gz
+*.vcf
+*.vcf.gz
+
+# ignore files in data/
+data/
