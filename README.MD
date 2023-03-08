@@ -2,7 +2,34 @@
 
 The dataset of ancient Eurasians (see [DataS1](https://github.com/sarabehnamian/Origins-of-Ancient-Eurasian-Genomes/tree/main/steps/Step%200)). The dataset contains **genetic data** of **ancient Eurasians** from **different time periods**. The data is in the form of **SNP patterns**.
 
-Develop an interface that allows selecting **populations** and **time** and calculates the **minor allele frequencies** of the chosen populations. The program will **merge patterns** that are too close. The results will be printed on the screen as **admixture plots**.
+
+
+Project:
+
+- Develop an interface that allows selecting **populations** and **time** (`from Eurasian - Dataset_tims.xlsx`) and calculates the **minor allele frequencies** of the chosen populations (`DataS1 _sara github`).
+- The program will **merge patterns** that are too close.
+- The results will be printed on the screen as **admixture plots**.
+
+
+
+Population: based on country? or ancient component score
+
+filter time and Pops
+
+MAF for pops in time : 118000 Variants per pops which maf should be report?
+
+The program will **merge patterns** that are too close. which pattern?
+
+the result will be printed as admixture plot
+
+filter snp?
+
+
+- admixture : q file
+- 118000 snp allelle freq for each country
+- 
+
+
 
 # PLINK 1.9
 
@@ -99,7 +126,10 @@ Note that the first two columns (family and individual ID) are required, while t
 
 In the example you provided, the first individual (Russia DA249) has unknown parents, an unknown sex, and a missing phenotype, while the second individual (Germany Falkenstein) has unknown parents, is female (sex=2), and has an affected phenotype (phenotype=1).
 
-
 bim: variant identifier and minor allele
 ped: familly id and individual id and allels
 excell = indv ID and time
+
+## admixture
+
+admixture DataS1.bed 11
