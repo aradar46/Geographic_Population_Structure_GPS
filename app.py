@@ -5,14 +5,14 @@ import streamlit as st
 import altair as alt
 import pydeck as pdk
 
-data = pd.read_csv("Data/DataS1_freq_labels (curated).csv", sep="\t")
+data = pd.read_csv("Data/DataS1_freq_Cluster (curated).csv", sep="\t")
 
 
 
-# Define labels and their colors
-labels = data["label"].unique()
+# Define Cluster and their colors
+Cluster = data["label"].unique()
 colors = ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf", "#9b59b6", "#3498db"]
-label_color_dict = {label: color for label, color in zip(labels, colors)}
+label_color_dict = {label: color for label, color in zip(Cluster, colors)}
 
 # Sidebar for user input
 st.sidebar.title("Country and Date Selector")
@@ -29,7 +29,7 @@ filtered_data = data[(data["country"].isin(selected_countries)) & (data["date"].
 # Create plot
 if len(filtered_data) > 0:
     chart = alt.Chart(filtered_data).mark_bar().encode(
-        x=alt.X("label:N", sort=list(labels)),
+        x=alt.X("label:N", sort=list(Cluster)),
         y=alt.Y("country:N", sort=alt.SortField(field="country", order="ascending")),
         color=alt.Color("label:N", scale=alt.Scale(domain=list(label_color_dict.keys()), range=list(label_color_dict.values()))),
         order=alt.Order("country", sort="ascending")
