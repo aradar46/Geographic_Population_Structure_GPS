@@ -16,3 +16,10 @@
 data/
 *.P 
 *.Q
+
+# ignore .ipynb_checkpoints folder
+.ipynb_checkpoints/
+
+# all csv files except Data/DataS1_freq_labels (curated).csv
+*.csv
+!Data/DataS1_freq_labels (curated).csv

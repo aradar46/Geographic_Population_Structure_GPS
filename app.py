@@ -76,14 +76,6 @@ if len(filtered_data) > 0:
                             get_line_color=[22, 22, 22, 20],
                             pickable=True,
                             auto_highlight=True)
-    marker_layer = pdk.Layer("ScatterplotLayer", 
-                            data=filtered_data, 
-                            get_position="[longitude, latitude]",
-                            get_radius=100000,
-                            get_fill_color= [255, 0, 0, 44],
-                            get_line_color=[22, 22, 22, 20],
-                            pickable=True,
-                        auto_highlight=True)
     map = pdk.Deck(map_style="mapbox://styles/mapbox/light-v9", 
                 initial_view_state=view_state, 
                 layers=[marker_layer])
