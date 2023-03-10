@@ -11,6 +11,8 @@
 *.map
 *.nosex
 *.txt
+!requirements.txt
+
 # ignore files in data/
 Data/0_Raw
 *.P 
