@@ -10,20 +10,16 @@
 *.vcf.gz
 *.map
 *.nosex
-*.csv
 *.txt
 # ignore files in data/
-data/
+Data/0_Raw
 *.P 
 *.Q
 
 # ignore .ipynb_checkpoints folder
 .ipynb_checkpoints/
 
-# all csv files except Data/DataS1_freq_labels (curated).csv
-*.csv
-!Data/DataS1_freq_labels (curated).csv
+
 
 *_SD.csv.gz
 
-!Data/2_clustring/
