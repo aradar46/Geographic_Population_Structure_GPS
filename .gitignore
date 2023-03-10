@@ -23,3 +23,6 @@ data/
 # all csv files except Data/DataS1_freq_labels (curated).csv
 *.csv
 !Data/DataS1_freq_labels (curated).csv
+
+*.SD.csv.gz
+
