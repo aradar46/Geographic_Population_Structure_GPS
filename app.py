@@ -17,7 +17,7 @@ import graphviz
 container = st.container()
 with container:
     #? Set the page title
-    st.title("MAF Viewer")
+    st.title("Geographic Population Structure (GPS) Based on Minor Allele Frequencies (MAF) of SNPs")
     st.info('This interface accepts a tab delimited csv.gz file with the following format:')
     st.text('country\tdate\tSNP1\tSNP2\t...\nSweden\t2000\tMAF1\tMAF2\t...')
     st.info('github link:')
@@ -78,13 +78,13 @@ if len(filtered_df) > 3:
             if len(filtered_df) > 20:
                 kmax=20
                 top3=mf.plot_silhouette_score(X, k_max=kmax) 
-                st.info(f"Top 3 Silhouette Scores: {top3}")
+                st.sidebar.info(f"Top 3 Silhouette Scores are cluster numbers of: {top3}")
             else:
                 kmax=len(filtered_df)-1
                 top3=mf.plot_silhouette_score(X, k_max=kmax)
-                st.info(f"Top 3 Silhouette Scores: {top3}")
+                st.sidebar.info(f"Top 3 Silhouette Scores: {top3}")
         else:
-            st.write("Error!!: Less than 3 samples available for selected countries and date range.")
+            st.sidebar.info(f"Top 3 Silhouette Scores are cluster numbers of: {top3}")
     min_value = 2
     max_value = len(filtered_df)-1
     n_clusters = st.sidebar.slider('Select a number clusters', min_value, max_value)
