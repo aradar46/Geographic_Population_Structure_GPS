@@ -69,7 +69,7 @@ top3=[]
 n_clusters=0
 if len(filtered_df) > 3:
     #! Sidebar for user number of clusters
-    st.sidebar.title("Spectral Clustring")
+    st.sidebar.title("Clustring")
     st.sidebar.subheader("Number of Clusters:")
     # sidebar button Silhouette Score Plot
     if st.sidebar.button("Run Silhouette Score Plot"):
@@ -117,17 +117,11 @@ if n_clusters>1:
         # unflatten the graph
         graph.graph_attr['rankdir'] = 'LR'
         st.graphviz_chart(graph)
-        
-
-if len(filtered_df)>3:
-    st.sidebar.title("UMAP & TSNE")
-    if st.sidebar.button("Run t-SNE & UMAP "):
-            s1, s2 = st.columns(2)
-            with s1:
-                st.subheader("t-SNE Plot")
-                mf.tsne_plot(filtered_df.iloc[:, 2:-1], df_cont.countrydate)
-            with s2:
-                st.subheader('UMAP Plot')
-                mf.umap_plot(filtered_df.iloc[:, 2:-1], df_cont.countrydate)
-        
+        s1, s2 = st.columns(2)
+        with s1:
+            st.subheader("t-SNE Plot")
+            mf.tsne_plot(filtered_df.iloc[:, 2:-1], df_cont.countrydate, labels)
+        with s2:
+            st.subheader('UMAP Plot')
+            mf.umap_plot(filtered_df.iloc[:, 2:-1], df_cont.countrydate, labels)
     

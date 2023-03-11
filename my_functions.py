@@ -12,7 +12,16 @@ import plotly.graph_objects as go
 from sklearn.manifold import TSNE
 
 
+
+
+
+
 def plot_silhouette_score(X, k_min=2, k_max=20):
+    '''Plot the silhouette score for a range of K values
+    X: The data
+    k_min: The minimum number of clusters
+    k_max: The maximum number of clusters   
+    '''
     # Create a range of K values
     k_range = range(k_min, k_max+1)
     # Create an empty list to store the silhouette scores
@@ -36,7 +45,16 @@ def plot_silhouette_score(X, k_min=2, k_max=20):
     return top_3
 
 
+
+
+
 def spectral_clustering(df3, k, country_date):
+    '''Perform spectral clustering on the data
+    df3: The data
+    k: The number of clusters
+    country_date: The country and date
+    '''
+    
     # Scale the data
     scaler = StandardScaler()
     X = scaler.fit_transform(df3)
@@ -53,7 +71,13 @@ def spectral_clustering(df3, k, country_date):
     return country_labels_S, labels
 
 
+
+
+
 def plot_country_labels(country_labels):
+    ''' Plot the country labels on a map
+    country_labels: The country clusters
+    '''
     # Define the data for the Choropleth map
     data = go.Choropleth(
         locations=list(country_labels.keys()),  # The countries
@@ -78,25 +102,32 @@ def plot_country_labels(country_labels):
             )
         ]
     )
-
     # Create the figure and add the Choropleth map and layout to it
     fig = go.Figure(data=data, layout=layout)
     # Display the figure using Streamlit
     st.plotly_chart(fig)
 
 
-def umap_plot(df, country_date):
+
+
+
+
+def umap_plot(df, country_date, labels):
+    ''' Plot the UMAP projection of the data
+    df: The data
+    country_date: The country_date list for the annotation'''
+    
     # Apply UMAP to the dataset
     reducer = umap.UMAP()
     # df_umap = reducer.fit_transform(df)
-    df_umap = umap.UMAP(min_dist=0.1, random_state=21).fit_transform(df)
+    df_umap = umap.UMAP(min_dist=0.1, random_state=42).fit_transform(df)
     # size of the figure
     fig, ax = plt.subplots(figsize=(10, 10))
 
     # Visualize the UMAP results
     plt.scatter(df_umap[:, 0], df_umap[:, 1], alpha=0.5)
     # color the points by their cluster assignment
-    # plt.scatter(df_umap[:, 0], df_umap[:, 1], c=labels, cmap='rainbow')
+    plt.scatter(df_umap[:, 0], df_umap[:, 1], c=labels, cmap='rainbow')
     annot2 = country_date.tolist()
     # add a annotation very small font size and close to the point
     for i, txt in enumerate(annot2):
@@ -111,7 +142,6 @@ def umap_plot(df, country_date):
     # Display the plot in Streamlit
     st.pyplot(fig)
 
-#%%
 
 
 
@@ -119,7 +149,11 @@ def umap_plot(df, country_date):
 
 
         
-def tsne_plot(df, country_date):
+def tsne_plot(df, country_date, labels):
+    ''' Plot the t-SNE projection of the data
+    df: The data
+    country_date: The country_date list for the annotation
+    '''
     # Apply t-SNE to the dataset
     tsne = TSNE(n_components=2, perplexity=(len(df)-2), learning_rate=200, n_iter=1000, random_state=42)
     df_tsne = tsne.fit_transform(df)
@@ -129,7 +163,7 @@ def tsne_plot(df, country_date):
     # Visualize the t-SNE results
     plt.scatter(df_tsne[:, 0], df_tsne[:, 1], alpha=0.5)
     # color the points by their cluster assignment
-    # plt.scatter(df_tsne[:, 0], df_tsne[:, 1], c=labels, cmap='rainbow')
+    plt.scatter(df_tsne[:, 0], df_tsne[:, 1], c=labels, cmap='rainbow')
     annot2 = country_date.tolist()
     # add a annotation very small font size and close to the point
     for i, txt in enumerate(annot2):
