@@ -20,7 +20,7 @@ with container:
     st.title("Geographic Population Structure (GPS) Based on Minor Allele Frequencies (MAF) of SNPs")
     st.info('This interface accepts a tab delimited csv.gz file with the following format:')
     st.text('country\tdate\tSNP1\tSNP2\t...\nSweden\t2000\tMAF1\tMAF2\t...')
-    st.info('github link:')
+    st.info('GitHub repository: https://github.com/arash-darzian/Geographic_Population_Structure_GPS')
     #! Allow user to upload a CSV file or load a default file
     uploaded_file = st.file_uploader("Choose a csv.gz file work with default data", type="gz")
 
