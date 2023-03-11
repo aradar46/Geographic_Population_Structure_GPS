@@ -69,7 +69,8 @@ top3=[]
 n_clusters=0
 if len(filtered_df) > 3:
     #! Sidebar for user number of clusters
-    st.sidebar.title("Number of Clusters:")
+    st.sidebar.title("Spectral Clustring")
+    st.sidebar.subheader("Number of Clusters:")
     # sidebar button Silhouette Score Plot
     if st.sidebar.button("Run Silhouette Score Plot"):
     # plot the silhouette scores
@@ -103,11 +104,11 @@ labels=[]
 if n_clusters>1:
     if st.sidebar.button("Run Clustering"):
         st.title("Spectral Clustering")
-        fig, country_labels, labels = mf.spectral_clustering(filtered_df.iloc[:, 2:-1], n_clusters, df_cont.countrydate)
-        st.pyplot(fig)
-        st.title('Country Clusters')
+        country_labels, labels = mf.spectral_clustering(filtered_df.iloc[:, 2:-1], n_clusters, df_cont.countrydate)
+        # st.pyplot(fig)
+        st.subheader('Clusters on Map')
         mf.plot_country_labels(country_labels)
-        st.title('Clusters')
+        st.subheader('Clusters by Details')
         # Create a graphlib graph object
         graph = graphviz.Digraph()
         # Loop through the rows of the DataFrame and add edges to the graph
@@ -116,10 +117,17 @@ if n_clusters>1:
         # unflatten the graph
         graph.graph_attr['rankdir'] = 'LR'
         st.graphviz_chart(graph)
-        st.title('UMAP Plot')
-        mf.umap_plot(filtered_df.iloc[:, 2:-1], df_cont.countrydate)
         
 
-
-
-
+if len(filtered_df)>3:
+    st.sidebar.title("UMAP & TSNE")
+    if st.sidebar.button("Run t-SNE & UMAP "):
+            s1, s2 = st.columns(2)
+            with s1:
+                st.subheader("t-SNE Plot")
+                mf.tsne_plot(filtered_df.iloc[:, 2:-1], df_cont.countrydate)
+            with s2:
+                st.subheader('UMAP Plot')
+                mf.umap_plot(filtered_df.iloc[:, 2:-1], df_cont.countrydate)
+        
+    

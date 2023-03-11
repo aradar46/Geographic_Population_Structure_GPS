@@ -9,6 +9,7 @@ from sklearn.metrics import silhouette_score
 from sklearn.cluster import SpectralClustering
 from sklearn.preprocessing import StandardScaler
 import plotly.graph_objects as go
+from sklearn.manifold import TSNE
 
 
 def plot_silhouette_score(X, k_min=2, k_max=20):
@@ -46,10 +47,10 @@ def spectral_clustering(df3, k, country_date):
     country_labels_S = dict(zip(country_date, clustering.labels_))
     labels = clustering.labels_
     # Visualize the clustering result
-    fig, ax = plt.subplots()
-    ax.scatter(X[:, 0], X[:, 1], c=clustering.labels_)
-    ax.set_title("Spectral Clustering ({} clusters)".format(n_clusters))
-    return fig, country_labels_S, labels
+    # fig, ax = plt.subplots()
+    # ax.scatter(X[:, 0], X[:, 1], c=clustering.labels_)
+    # ax.set_title("Spectral Clustering ({} clusters)".format(n_clusters))
+    return country_labels_S, labels
 
 
 def plot_country_labels(country_labels):
@@ -63,7 +64,7 @@ def plot_country_labels(country_labels):
     )
     # Define the layout for the map
     layout = go.Layout(
-        title='Cluster Labels by Country',
+        title='',
         geo=dict(showframe=False, showcoastlines=True,
                  projection_type='equirectangular'),
         annotations=[
@@ -111,12 +112,38 @@ def umap_plot(df, country_date):
     st.pyplot(fig)
 
 #%%
-import graphviz
-import pandas
 
 
 
 
 
-# plot_country_cluster(country_labels)
-# %%
+
+        
+def tsne_plot(df, country_date):
+    # Apply t-SNE to the dataset
+    tsne = TSNE(n_components=2, perplexity=(len(df)-2), learning_rate=200, n_iter=1000, random_state=42)
+    df_tsne = tsne.fit_transform(df)
+    # size of the figure
+    fig, ax = plt.subplots(figsize=(10, 10))
+
+    # Visualize the t-SNE results
+    plt.scatter(df_tsne[:, 0], df_tsne[:, 1], alpha=0.5)
+    # color the points by their cluster assignment
+    # plt.scatter(df_tsne[:, 0], df_tsne[:, 1], c=labels, cmap='rainbow')
+    annot2 = country_date.tolist()
+    # add a annotation very small font size and close to the point
+    for i, txt in enumerate(annot2):
+        plt.annotate(txt, (df_tsne[i, 0], df_tsne[i, 1]), fontsize=8, xytext=(
+            5, 2), textcoords='offset points')
+
+    # Add a title and labels
+    ax.set_title('t-SNE projection of the dataset')
+    ax.set_xlabel('t-SNE1')
+    ax.set_ylabel('t-SNE2')
+
+    # Display the plot in Streamlit
+    st.pyplot(fig)
+    
+    
+
+
