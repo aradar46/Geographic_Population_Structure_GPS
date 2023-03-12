@@ -61,8 +61,9 @@ selected_date_range = st.sidebar.slider("Select date range", min_value=1000, max
 
 # Filter data by user input
 filtered_df = df[(df["country"].isin(selected_countries)) & (df["date"].between(selected_date_range[0], selected_date_range[1]))]
-st.sidebar.info(f"Number of avaialable samples after your filters: {len(selected_countries)}")
 
+if len(filtered_df) > 0:
+    st.sidebar.info(f"Number of avaialable samples after your filters: {len(filtered_df)}")
 
 
 top3=[]
