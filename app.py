@@ -22,7 +22,7 @@ with container:
     st.text('country\tdate\tSNP1\tSNP2\t...\nSweden\t2000\tMAF1\tMAF2\t...')
     st.info('GitHub repository: https://github.com/arash-darzian/Geographic_Population_Structure_GPS')
     #! Allow user to upload a CSV file or load a default file
-    uploaded_file = st.file_uploader("Choose a csv.gz file work with default data", type="gz")
+    uploaded_file = st.file_uploader("Choose a csv.gz file or work with default test data", type="gz")
 
     # download default data
     if st.button("Download Test Data"):
@@ -61,7 +61,7 @@ selected_date_range = st.sidebar.slider("Select date range", min_value=1000, max
 
 # Filter data by user input
 filtered_df = df[(df["country"].isin(selected_countries)) & (df["date"].between(selected_date_range[0], selected_date_range[1]))]
-
+st.sidebar.info(f"Number of avaialable samples after your filters: {len(selected_countries)}")
 
 
 
@@ -117,11 +117,11 @@ if n_clusters>1:
         # unflatten the graph
         graph.graph_attr['rankdir'] = 'LR'
         st.graphviz_chart(graph)
-        s1, s2 = st.columns(2)
-        with s1:
-            st.subheader("t-SNE Plot")
-            mf.tsne_plot(filtered_df.iloc[:, 2:-1], df_cont.countrydate, labels)
-        with s2:
-            st.subheader('UMAP Plot')
-            mf.umap_plot(filtered_df.iloc[:, 2:-1], df_cont.countrydate, labels)
+        # s1, s2 = st.columns(2)
+        # with s1:
+        #     st.subheader("t-SNE Plot")
+        #     mf.tsne_plot(filtered_df.iloc[:, 2:-1], df_cont.countrydate, labels)
+        # with s2:
+        st.subheader('UMAP Plot')
+        mf.umap_plot(filtered_df.iloc[:, 2:-1], df_cont.countrydate, labels)
     

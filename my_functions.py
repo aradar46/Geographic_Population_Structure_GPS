@@ -117,10 +117,12 @@ def umap_plot(df, country_date, labels):
     df: The data
     country_date: The country_date list for the annotation'''
     
-    # Apply UMAP to the dataset
-    reducer = umap.UMAP()
     # df_umap = reducer.fit_transform(df)
-    df_umap = umap.UMAP(min_dist=0.1, random_state=42).fit_transform(df)
+    df_umap = umap.UMAP(random_state=42,
+                         n_neighbors=5,
+        # min_dist=0.1,
+        # n_components=3,
+        metric='canberra').fit_transform(df)
     # size of the figure
     fig, ax = plt.subplots(figsize=(10, 10))
 
@@ -143,40 +145,35 @@ def umap_plot(df, country_date, labels):
     st.pyplot(fig)
 
 
-
-
-
-
-
         
-def tsne_plot(df, country_date, labels):
-    ''' Plot the t-SNE projection of the data
-    df: The data
-    country_date: The country_date list for the annotation
-    '''
-    # Apply t-SNE to the dataset
-    tsne = TSNE(n_components=2, perplexity=(len(df)-2), learning_rate=200, n_iter=1000, random_state=42)
-    df_tsne = tsne.fit_transform(df)
-    # size of the figure
-    fig, ax = plt.subplots(figsize=(10, 10))
+# def tsne_plot(df, country_date, labels):
+#     ''' Plot the t-SNE projection of the data
+#     df: The data
+#     country_date: The country_date list for the annotation
+#     '''
+#     # Apply t-SNE to the dataset
+#     tsne = TSNE(n_components=2, perplexity=(len(df)-2), learning_rate=200, n_iter=1000, random_state=42)
+#     df_tsne = tsne.fit_transform(df)
+#     # size of the figure
+#     fig, ax = plt.subplots(figsize=(10, 10))
 
-    # Visualize the t-SNE results
-    plt.scatter(df_tsne[:, 0], df_tsne[:, 1], alpha=0.5)
-    # color the points by their cluster assignment
-    plt.scatter(df_tsne[:, 0], df_tsne[:, 1], c=labels, cmap='rainbow')
-    annot2 = country_date.tolist()
-    # add a annotation very small font size and close to the point
-    for i, txt in enumerate(annot2):
-        plt.annotate(txt, (df_tsne[i, 0], df_tsne[i, 1]), fontsize=8, xytext=(
-            5, 2), textcoords='offset points')
+#     # Visualize the t-SNE results
+#     plt.scatter(df_tsne[:, 0], df_tsne[:, 1], alpha=0.5)
+#     # color the points by their cluster assignment
+#     plt.scatter(df_tsne[:, 0], df_tsne[:, 1], c=labels, cmap='rainbow')
+#     annot2 = country_date.tolist()
+#     # add a annotation very small font size and close to the point
+#     for i, txt in enumerate(annot2):
+#         plt.annotate(txt, (df_tsne[i, 0], df_tsne[i, 1]), fontsize=8, xytext=(
+#             5, 2), textcoords='offset points')
 
-    # Add a title and labels
-    ax.set_title('t-SNE projection of the dataset')
-    ax.set_xlabel('t-SNE1')
-    ax.set_ylabel('t-SNE2')
+#     # Add a title and labels
+#     ax.set_title('t-SNE projection of the dataset')
+#     ax.set_xlabel('t-SNE1')
+#     ax.set_ylabel('t-SNE2')
 
-    # Display the plot in Streamlit
-    st.pyplot(fig)
+#     # Display the plot in Streamlit
+#     st.pyplot(fig)
     
     
 

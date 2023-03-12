@@ -1,7 +1,6 @@
-
 ## Project
 
-- Develop an interface that allows selecting **populations** and **time** (`from Eurasian - Dataset_tims.xlsx`) and calculates the **minor allele frequencies** of the chosen populations (`DataS1 _sara github`). The program will **merge patterns** that are too close. The results will be printed on the screen.
+Develop an interface that allows selecting **populations** and **time** and calculates the **minor allele frequencies** of the chosen populations . The program will **merge patterns** that are too close. The results will be printed on the screen.
 
 ## Approach
 
@@ -13,13 +12,11 @@ I divide the project to three steps:
 2. Unsupervised **Clustering** : To merge patterns that are too close. With such a high featured small dataset, clustering is a nightmare. However, I find Spectral Clustering better than K-means. TSNE and UMAP have been used for comparison. The other option would be gussian mixture model.`2_clustring.ipynb`
 3. **Web Interface** : Using **streamlit** to create a web interface that allows selecting **populations** and **time** and clustring the data.`app.py` and `my_functions.py`
 
-
 # Result
 
 [App link is here](https://arash-darzian-geographic-population-structure-gps-app-sm552x.streamlit.app/ "Geographic Population Structure (GPS) Based on Minor Allele Frequencies (MAF) of SNPs")
 
 ![img](Data/screen.png "screenshot")
-
 
 ## Setup
 
