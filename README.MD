@@ -14,7 +14,7 @@ I divide the project to three steps:
 
 # Result
 
-[App link is here](https://arash-darzian-geographic-population-structure-gps-app-sm552x.streamlit.app/ "Geographic Population Structure (GPS) Based on Minor Allele Frequencies (MAF) of SNPs")
+[App link is here](https://gpsmaf.streamlit.app/ "Geographic Population Structure (GPS) Based on Minor Allele Frequencies (MAF) of SNPs")
 
 ![img](Data/screen1.png "screenshot")
 
