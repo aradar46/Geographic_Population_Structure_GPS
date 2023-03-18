@@ -21,7 +21,7 @@ Data/0_Raw
 # ignore .ipynb_checkpoints folder
 .ipynb_checkpoints/
 
-
+__pycache__/
 
 *_SD.csv.gz
 

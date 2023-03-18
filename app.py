@@ -4,25 +4,31 @@ import streamlit as st
 import pandas as pd
 import my_functions as mf
 
-
-
-container = st.container()
+#? Set the page title
+st.markdown("<h1 style='text-align: center; color: blue;'>GPSmaf</h1>", unsafe_allow_html=True)
+#  a checkbox with bold font
+st.markdown("<h3 style='text-align: center; color: black;'>A tool to visualize the geographic population structure of a set of samples based on their minor allele frequencies (MAF) of SNPs</h3>", unsafe_allow_html=True)
+if st.checkbox('Check here to see the instructions and how to use the app'):
+    st.write('''
+    ## Instructions''')
+    st.write('''
+    This interface accepts a tab delimited csv.gz file with the following format:\n
+    country\tdate\tSNP1\tSNP2\t...\n
+    Sweden\t2000\tMAF1\tMAF2\t...\n
+    ''')
+    st.write(''' 
+    1. Upload a csv.gz file or use the default test data.   
+    2. Select countries and date range to filter the data. 
+    3. Select number of clusters. ( You can run "Silhouette Score Plot" to find the best number of clusters)
+    5. Run Clustering.\n
+    GitHub repository: https://github.com/arash-darzian/Geographic_Population_Structure_GPS
+    ''')
+    
+st.sidebar.title("1. Data")
+container = st.sidebar.container()
 with container:
-    #? Set the page title
-    st.title("Geographic Population Structure (GPS) Based on Minor Allele Frequencies (MAF) of SNPs")
-    st.info('This interface accepts a tab delimited csv.gz file with the following format:')
-    st.text('country\tdate\tSNP1\tSNP2\t...\nSweden\t2000\tMAF1\tMAF2\t...')
-    st.info('GitHub repository: https://github.com/arash-darzian/Geographic_Population_Structure_GPS')
     #! Allow user to upload a CSV file or load a default file
     uploaded_file = st.file_uploader("Choose a csv.gz file or work with default test data", type="gz")
-
-    # download default data
-    if st.button("Download Test Data"):
-        st.download_button(
-            label="Download",
-            data='Data/1_raw2freq/test_1.csv.gz',
-            file_name="Data/1_raw2freq/maf_filteered_test.csv.gz",)
-        
     if uploaded_file is None:
         # st.info("No file uploaded. Loading default file...")
         df1 = pd.read_csv('Data/1_raw2freq/maf_filteered_test.csv.gz', sep="\t", compression='gzip')
@@ -30,11 +36,6 @@ with container:
     else:
         df1 = pd.read_csv(uploaded_file, sep="\t", compression='gzip', header=None)
         df1= pd.DataFrame(df1)
-        
-    # Display the dataframe in the app
-    # st.write(df1.head(5))
-    
-
 st.write("---")
 
 # protect the data
@@ -43,7 +44,7 @@ df=df1
 
 
 #! Sidebar for user input
-st.sidebar.title("Country and Date Selector")
+st.sidebar.title("2. Country and Date Selector")
 select_all_countries = st.sidebar.checkbox("Select all countries", value=False)
 if select_all_countries:
     selected_countries = df["country"].unique()
@@ -62,10 +63,10 @@ top3=[]
 n_clusters=0
 if len(filtered_df) > 3:
     #! Sidebar for user number of clusters
-    st.sidebar.title("Clustring")
+    st.sidebar.title("3. Clustring")
     st.sidebar.subheader("Number of Clusters:")
     # sidebar button Silhouette Score Plot
-    if st.sidebar.button("Run Silhouette Score Plot"):
+    if st.sidebar.checkbox("Run Silhouette Score Plot"):
     # plot the silhouette scores
         if len(filtered_df) > 3:
             X = filtered_df.iloc[:, 2:]
@@ -96,10 +97,8 @@ labels=[]
 
 if n_clusters>1:
     if st.sidebar.button("Run Clustering"):
-        st.title("Spectral Clustering")
+        st.title("Spectral Clustering Results")
         country_labels, labels = mf.spectral_clustering(filtered_df.iloc[:, 2:-1], n_clusters, df_cont.countrydate)
-        # st.pyplot(fig)
-        st.subheader('Clusters by Details')
         mf.clusterplotting(country_labels)
         if selected_date_range[0] == selected_date_range[1]:
             mf.plot_country_labels(country_labels)
@@ -116,7 +115,7 @@ if n_clusters>1:
         # # with s1:
         # #     st.subheader("t-SNE Plot")
         # #     mf.tsne_plot(filtered_df.iloc[:, 2:-1], df_cont.countrydate, labels)
-        # # with s2:
+        # # # with s2:
         # st.subheader('UMAP Plot')
         # mf.umap_plot(filtered_df.iloc[:, 2:-1], df_cont.countrydate, labels)
     
