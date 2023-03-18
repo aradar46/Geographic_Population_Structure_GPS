@@ -2,16 +2,8 @@
 # import libraries
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
-import numpy as np
-import umap.umap_ as umap
-from sklearn.cluster import KMeans
-from sklearn.metrics import silhouette_score
-from sklearn.cluster import SpectralClustering
-from sklearn.preprocessing import StandardScaler
-import plotly.graph_objects as go
 import my_functions as mf
-import graphviz
+
 
 
 container = st.container()
@@ -29,18 +21,18 @@ with container:
         st.download_button(
             label="Download",
             data='Data/1_raw2freq/test_1.csv.gz',
-            file_name="Data/1_raw2freq/test_1.csv.gz",)
+            file_name="Data/1_raw2freq/maf_filteered_test.csv.gz",)
         
     if uploaded_file is None:
         # st.info("No file uploaded. Loading default file...")
-        df1 = pd.read_csv('Data/1_raw2freq/test_1.csv.gz', sep="\t", compression='gzip')
+        df1 = pd.read_csv('Data/1_raw2freq/maf_filteered_test.csv.gz', sep="\t", compression='gzip')
         df1= pd.DataFrame(df1)
     else:
         df1 = pd.read_csv(uploaded_file, sep="\t", compression='gzip', header=None)
         df1= pd.DataFrame(df1)
         
     # Display the dataframe in the app
-    st.write(df1.head(5))
+    # st.write(df1.head(5))
     
 
 st.write("---")
@@ -107,22 +99,24 @@ if n_clusters>1:
         st.title("Spectral Clustering")
         country_labels, labels = mf.spectral_clustering(filtered_df.iloc[:, 2:-1], n_clusters, df_cont.countrydate)
         # st.pyplot(fig)
-        st.subheader('Clusters on Map')
-        mf.plot_country_labels(country_labels)
         st.subheader('Clusters by Details')
+        mf.clusterplotting(country_labels)
+        if selected_date_range[0] == selected_date_range[1]:
+            mf.plot_country_labels(country_labels)
+
         # Create a graphlib graph object
-        graph = graphviz.Digraph()
-        # Loop through the rows of the DataFrame and add edges to the graph
-        for k, v in country_labels.items():
-            graph.edge(str(k), str(v))
-        # unflatten the graph
-        graph.graph_attr['rankdir'] = 'LR'
-        st.graphviz_chart(graph)
-        # s1, s2 = st.columns(2)
-        # with s1:
-        #     st.subheader("t-SNE Plot")
-        #     mf.tsne_plot(filtered_df.iloc[:, 2:-1], df_cont.countrydate, labels)
-        # with s2:
-        st.subheader('UMAP Plot')
-        mf.umap_plot(filtered_df.iloc[:, 2:-1], df_cont.countrydate, labels)
+        # graph = graphviz.Digraph()
+        # # Loop through the rows of the DataFrame and add edges to the graph
+        # for k, v in country_labels.items():
+        #     graph.edge(str(k), str(v))
+        # # unflatten the graph
+        # graph.graph_attr['rankdir'] = 'LR'
+        # st.graphviz_chart(graph)
+        # # s1, s2 = st.columns(2)
+        # # with s1:
+        # #     st.subheader("t-SNE Plot")
+        # #     mf.tsne_plot(filtered_df.iloc[:, 2:-1], df_cont.countrydate, labels)
+        # # with s2:
+        # st.subheader('UMAP Plot')
+        # mf.umap_plot(filtered_df.iloc[:, 2:-1], df_cont.countrydate, labels)
     
