@@ -16,7 +16,7 @@ I divide the project to three steps:
 
 [App link is here](https://arash-darzian-geographic-population-structure-gps-app-sm552x.streamlit.app/ "Geographic Population Structure (GPS) Based on Minor Allele Frequencies (MAF) of SNPs")
 
-![img](Data/screen.png "screenshot")
+![img](Data/screen1.png "screenshot")
 
 ## Setup
 
@@ -41,8 +41,6 @@ Data/── 0_Raw
 ```
 ./
 ├── 1_raw2freq.ipynb
-
-├── 2_clustring.ipynb
 
 ├── app.py
 
