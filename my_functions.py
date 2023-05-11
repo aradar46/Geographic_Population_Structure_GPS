@@ -3,14 +3,14 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
-# import umap.umap_ as umap
+
 from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_score
 from sklearn.cluster import SpectralClustering
 from sklearn.preprocessing import StandardScaler
 import plotly.graph_objects as go
 import plotly.express as px
-
+# import umap.umap_ as umap
 # from sklearn.manifold import TSNE
 
 
