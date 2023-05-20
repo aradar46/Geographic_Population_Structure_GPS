@@ -1,0 +1,9 @@
+The PLINK input files provided by Eran Elhaik through google drive link sharing
+For having access to the files, please contact Eran (eran.elhaik@biol.lu.se)
+
+The files are:
+bed, fam, bim, and anno (near 5 GB)
+
+They are very large files and cannot be uploaded to github and also needs 
+lots of computational power to run the Scripts_notebooks/0_plink_to_countryDate_MAF.ipynb
+script.

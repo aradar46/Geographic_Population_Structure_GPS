@@ -1,27 +1,3 @@
+Data/Input/v54.1.*
 
-# ignore files in guidelines/ 
-0_guideline/
-
-*.bed
-*.bed.gz
-*.ped
-*.ped.gz
-*.vcf
-*.vcf.gz
-*.map
-*.nosex
-*.txt
-!requirements.txt
-
-# ignore files in data/
-Data/0_Raw
-*.P 
-*.Q
-
-# ignore .ipynb_checkpoints folder
-.ipynb_checkpoints/
-
-__pycache__/
-
-*_SD.csv.gz
-
+FirstVersion/
