@@ -79,18 +79,24 @@ def umap_plot(df, data_label, colors_map, num_neigh):
         )
     
     #make background black
-    fig.update_layout(
-        plot_bgcolor="black",
-        paper_bgcolor="black",
-    )
+    fig.update_yaxes(
+        # mirror=True,
+        ticks='outside',
+        # showline=True,
+        linecolor='#101010',
+        gridcolor='#101010'
+                    )      
+
 
     fig.update_traces(marker=dict(size=5), textfont=dict(size=8))
     fig.update_layout(
-        title="UMAP projection",
+        title="UMAP projection", title_x=0.5,
         xaxis_title="UMAP1",
         yaxis_title="UMAP2",
         showlegend=True,
-        plot_bgcolor="white",
+        plot_bgcolor="#101010",
+
+        
     )
     # legend position below the plot
     fig.update_layout(
@@ -126,7 +132,7 @@ def make_dendrogram(df_dist):
     fig.update_layout(xaxis_tickangle=-90)
     # y axis labels rotation
     # text size
-    fig.update_layout(font=dict(size=6))
+    fig.update_layout(font=dict(size=4))
 
     # make points in the dendrogram clickable
     fig.update_traces(
@@ -136,14 +142,16 @@ def make_dendrogram(df_dist):
     )
     # add text to the points in the dendrogram
     fig.update_layout(
-        hoverlabel=dict(bgcolor="white", font_size=16, font_family="Rockwell")
+        hoverlabel=dict(bgcolor="#ff4b4b", font_size=16, font_family="Rockwell")
     )
     fig.update_layout(width=600, height=800)
-    fig.update_xaxes(showgrid=False, zeroline=True, showticklabels=True)
+    fig.update_xaxes(showgrid=False,  showticklabels=True)
     # title
     fig.update_layout(title_text="Dendrogram", title_x=0.5)
     # remove borders
     fig.update_xaxes(showline=False, linewidth=0, linecolor="white")
+    # font size of the labels
+    fig.update_yaxes(tickfont=dict(size=6))
 
     return fig
 
