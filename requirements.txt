@@ -1,0 +1,6 @@
+streamlit==1.22.0
+pandas==2.0.1
+umap-learn==0.5.3
+numpy==1.21.0
+plotly==5.14.1
+scipy==1.10.1
