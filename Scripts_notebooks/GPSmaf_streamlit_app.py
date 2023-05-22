@@ -77,6 +77,12 @@ def umap_plot(df, data_label, colors_map, num_neigh):
                 name=str(label),
             )
         )
+    
+    #make background black
+    fig.update_layout(
+        plot_bgcolor="black",
+        paper_bgcolor="black",
+    )
 
     fig.update_traces(marker=dict(size=5), textfont=dict(size=8))
     fig.update_layout(

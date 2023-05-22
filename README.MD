@@ -116,5 +116,7 @@ Installing a Conda Environment using environment.yml
 ### **`Streamlit Server Implementation`**
 
 - I linked the repository to the streamlit server. So, it can be accessed through the following link:
+  -`requirements.txt` : contains the required packages for the streamlit server.
 
-Link
+Link : https://gpsmaf.streamlit.app/
+
