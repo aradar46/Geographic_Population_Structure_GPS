@@ -117,10 +117,6 @@ def umap_plot(df, data_label, colors_map, num_neigh):
 
 def make_dendrogram(df_dist):
     distance_matrix = df_dist
-    # Calculate linkage matrix for hierarchical clustering
-    # linkage_matrix = linkage(distance_matrix.values, method='ward')
-
-    # X = np.random.rand(15, 10) # 15 samples, with 10 dimensions each
     fig = ff.create_dendrogram(
         distance_matrix,
         color_threshold=5.5,
@@ -128,30 +124,24 @@ def make_dendrogram(df_dist):
         orientation="left",
         linkagefun=lambda x: linkage(distance_matrix.values, method="ward"),
     )
-    # x axis labels rotation
-    fig.update_layout(xaxis_tickangle=-90)
-    # y axis labels rotation
-    # text size
-    fig.update_layout(font=dict(size=4))
+    
+    fig.update_layout(xaxis_tickangle=-90,
+        font=dict(size=4),
+        hoverlabel=dict(bgcolor="#ff4b4b", font_size=16, font_family="Rockwell"),
+        width=600, height=800,
+        title_text="Dendrogram",
+        title_x=0.5,
+        )
 
-    # make points in the dendrogram clickable
     fig.update_traces(
         hovertemplate="Country: %{text}<extra></extra>",
         text=distance_matrix.index,
         selector=dict(type="scatter"),
     )
-    # add text to the points in the dendrogram
-    fig.update_layout(
-        hoverlabel=dict(bgcolor="#ff4b4b", font_size=16, font_family="Rockwell")
-    )
-    fig.update_layout(width=600, height=800)
-    fig.update_xaxes(showgrid=False,  showticklabels=True)
-    # title
-    fig.update_layout(title_text="Dendrogram", title_x=0.5)
-    # remove borders
-    fig.update_xaxes(showline=False, linewidth=0, linecolor="white")
-    # font size of the labels
-    fig.update_yaxes(tickfont=dict(size=6))
+
+
+    # fig.update_xaxes(showline=False, linewidth=0, linecolor="white")
+    # fig.update_yaxes(tickfont=dict(size=6))
 
     return fig
 
@@ -172,6 +162,7 @@ df = df[df.country.isin(countries)]
 dates = st.sidebar.multiselect("Select dates( BP * 1000 units):", dates)
 df = df[df.date.isin(dates)]
 
+
 # select countries
 all_countries = st.sidebar.checkbox("Select all countries")
 if all_countries:
@@ -184,10 +175,22 @@ else:
 
 
 # select number of neighbors
+tool_tip_umap='The "number of neighbors" parameter in UMAP refers to the number of neighboring points considered when constructing the topological structure of the data.'
 mid_neg = int(np.sqrt(len(df)) - 1)
 if mid_neg < 2:
     mid_neg = 2
-num_neigh = st.sidebar.slider("Select number of neighbors:", 2, 40, mid_neg)
+num_neigh = st.sidebar.slider("Select number of neighbors:", 2, 40, mid_neg, help=tool_tip_umap)
+
+
+# chose between country_region 	country_date	country 
+# Using tooltip with a button
+tooltip1 = "Label which will be shown in the plot and dendrogram."
+group_by = st.sidebar.selectbox( "Groups Label:", ["country", "country_date"], help=tooltip1)
+# if user hover over the question mark, show the following text
+
+
+
+
 
 ################################################################################
 # sidebar button
@@ -199,7 +202,7 @@ if st.sidebar.button("Run"):
         # try:
         df_dist, fig = umap_plot(
             my_encoded_data,
-            df["country"],
+            df[group_by],
             df["region"].str.title(),
             num_neigh=num_neigh,
         )
