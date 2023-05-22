@@ -2,12 +2,11 @@
 import streamlit as st
 import pandas as pd
 import umap
-import pandas as pd
 import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
 from scipy.cluster.hierarchy import dendrogram, linkage
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 import plotly.figure_factory as ff
 
 
@@ -19,6 +18,8 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
+################################################################################
+
 
 # Title
 st.title("GPSmaf")
@@ -26,7 +27,7 @@ st.title("GPSmaf")
 # Subheader
 st.subheader("Geographical Population Structure Infrence from Minor Allele Frequencies")
 
-
+################################################################################
 # functions
 def umap_plot(df, data_label, colors_map, num_neigh):
     """Plot the UMAP projection of the data
@@ -86,10 +87,9 @@ def umap_plot(df, data_label, colors_map, num_neigh):
         plot_bgcolor="white",
     )
     # legend position below the plot
-    fig.update_layout(legend=dict(orientation="h"
-                                  , yanchor="bottom", y=-.28, xanchor="right", x=1
-                                  ) )
-
+    fig.update_layout(
+        legend=dict(orientation="h", yanchor="bottom", y=-0.28, xanchor="right", x=1)
+    )
 
     #  # Reset the index if needed why? because the index is not continuous and it is not good for the dendrogram
     if isinstance(data_label, pd.Index):
@@ -101,6 +101,7 @@ def umap_plot(df, data_label, colors_map, num_neigh):
 
     return df_dist, fig
 
+################################################################################
 
 def make_dendrogram(df_dist):
     distance_matrix = df_dist
@@ -114,7 +115,6 @@ def make_dendrogram(df_dist):
         labels=distance_matrix.index,
         orientation="left",
         linkagefun=lambda x: linkage(distance_matrix.values, method="ward"),
-
     )
     # x axis labels rotation
     fig.update_layout(xaxis_tickangle=-90)
@@ -141,14 +141,13 @@ def make_dendrogram(df_dist):
 
     return fig
 
+################################################################################
 
 df = pd.read_csv("Data/Output/1_encoded_data_frame.csv.gz", compression="gzip")
 dates = df.date.unique()
 regions = df.region.unique()
 countries = df.country.unique()
 
-
-    
 
 df = df[df.date.isin(dates)]
 df = df[df.region.isin(regions)]
@@ -170,27 +169,17 @@ else:
     st.sidebar.write("Number of groups: ", len(df))
 
 
-
-
-
-
-
 # select number of neighbors
-mid_neg = int(np.sqrt(len(df))-1 )
-if mid_neg<2:
-    mid_neg=2
+mid_neg = int(np.sqrt(len(df)) - 1)
+if mid_neg < 2:
+    mid_neg = 2
 num_neigh = st.sidebar.slider("Select number of neighbors:", 2, 40, mid_neg)
 
-
-
+################################################################################
 # sidebar button
 if st.sidebar.button("Run"):
-
     col1, col2, col3 = st.columns([10, 1, 10])
     with col1:
-
-   
-
         my_encoded_data = df.iloc[:, 7:].values
         # Plot
         # try:
@@ -213,3 +202,5 @@ if st.sidebar.button("Run"):
         # except:
         #     st.write("Please select at least one region or country and one date")
 
+
+################################################################################
