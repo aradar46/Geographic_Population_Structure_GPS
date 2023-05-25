@@ -1,7 +1,7 @@
 # GPSmaf v2.0
 |        |         |
 |-------------------|-------------------|
-| <img src="Results/bp1_umap.png" alt="Image description" width="500" height="800"> | <img src="Results/bp1_dendo.png" alt="Image description" width="500" height="800"> |
+| <img src="Results/bp1_umap.png" alt="Image description" width="500" height="300"> | <img src="Results/bp1_dendo.png" alt="Image description" width="500" height="300"> |
 
 
 
