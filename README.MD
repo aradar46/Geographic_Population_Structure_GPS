@@ -1,4 +1,9 @@
 # GPSmaf v2.0
+|        |         |
+|-------------------|-------------------|
+| <img src="Results/bp1_umap.png" alt="Image description" width="800" height="500"> | <img src="Results/bp1_dendo.png" alt="Image description" width="800" height="500"> |
+
+
 
 ## **Objective:**
 
@@ -7,14 +12,15 @@ Develop an interface that allows selecting populations and time. The program wil
 
 ## **Description:**
 
-This repository provides a pipeline for handling and analyzing ancient genetic data and infrence genetical relationship between samples through the ages. It covers various stages, including PLINK file parsing, missing data filtering, Minor Allele Frequency (MAF) calculation, clustering analysis, and dimensionality reduction using an ensemble of autoencoders. Additionally, it offers visualization tools for exploring the data in reduced-dimensional space and hierarchical clustering.
+This repository provides a pipeline for handling and analyzing ancient genetic data and infrence genetical relationship between samples through the ages. It covers various stages, including PLINK file parsing, missing data filtering, Minor Allele Frequency (MAF) calculation, clustering analysis, and dimensionality reduction using an ensemble of autoencoders. Additionally, it offers visualization tools for exploring the data in reduced-dimensional space and hierarchical clustering. The pipeline is implemented in Python and is available as a Docker image. The pipeline is also available as a Streamlit app. The app allows users to select populations and time and visualize the results.  The app is available at https://gpsmaf.streamlit.app/.
 
 
 
 ## **Sections:**
 
 - [Data Processing and Methodology](Notes/Methods_describtion.md): Describes the data processing and methodology.
-- [Results](Notes/Results.md): Describes the results of the analysis.
+- [Results](Writings/Arash_Darzian.pdf): Report of the project.
+
 
 
 
@@ -39,6 +45,8 @@ This repository provides a pipeline for handling and analyzing ancient genetic d
 ## **Implementation** 
 
 ### **`Docker Implementation`** 
+
+Download the repository and follow the following steps to run the streamlit app in a docker container.
 
 1- install Docker
 
