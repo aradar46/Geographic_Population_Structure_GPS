@@ -130,4 +130,8 @@ Link : https://gpsmaf.streamlit.app/
 -`requirements.txt` : contains the required packages for the streamlit server.
 
 
+## How to cite this repo
+
+Darzian, Arash. "Geographic Population Structure (GPS)." GitHub, 2023, [https://github.com/arash-darzian/Geographic_Population_Structure_GPS](https://github.com/arash-darzian/Geographic_Population_Structure_GPS).
+
 
